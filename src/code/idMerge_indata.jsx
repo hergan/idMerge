@@ -7,14 +7,14 @@
 // TODO: add try/s to catch cancels and stop script
 // TODO: add file filters to openDialogs for windows
 //Dialog Mode:
-// var dataUri = File.openDialog("Select data file", "CSV:*.csv, false");
-// var templateUri = File.openDialog("Select template").fsName;
-// var exportTo = Folder.selectDialog("Select export folder").fsName + "/";
+var dataUri = File.openDialog("Select data file", "CSV:*.csv, false");
+var templateUri = File.openDialog("Select template").fsName;
+var exportTo = Folder.selectDialog("Select export folder").fsName + "/";
 
 //Debugging Mode:
-var dataUri = File("~/code/idMerge/src/data/ext_data.csv");
-var templateUri = File("~/code/idMerge/src/template/ext_0000_nrp.indt");
-var exportTo = Folder.selectDialog().fsName + "/";
+// var dataUri = File("~/code/idMerge/src/data/ext_data.csv");
+// var templateUri = File("~/code/idMerge/src/template/ext_0000_nrp.indt");
+// var exportTo = Folder.selectDialog().fsName + "/";
 
 // Set for true for console messages for debugging
 var debugMode = true;
@@ -69,6 +69,7 @@ function main() {
       false,
       pdfPreset
     );
+    $.sleep(2000);
     openTemplate.close(SaveOptions.no);
     if (debugMode == true) {
       $.writeln(
