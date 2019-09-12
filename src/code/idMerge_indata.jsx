@@ -1,11 +1,3 @@
-//InData Vars
-//Global>app>activedocument>autoflowPreferences>
-//Global>app>activedocument>autoflowThreads
-//Global>app>activedocument>prototypeStory
-//objectStyles
-
-// TODO: add try/s to catch cancels and stop script
-// TODO: add file filters to openDialogs for windows
 //Dialog Mode:
 var dataUri = File.openDialog("Select data file", "CSV:*.csv, false");
 var templateUri = File.openDialog("Select template").fsName;
@@ -35,7 +27,6 @@ while (recsImp == batchSize) {
   }
 }
 
-// main();
 // merge and record data
 function main() {
   var myTemplate = app.open(templateUri);
@@ -52,11 +43,11 @@ function main() {
   );
   if (recsImp > 0) {
     // import succeeded; reset lastREc just
-    //in case to reflect actual number of imported recs
+    // in case to reflect actual number of imported recs
     lastRec = firstRec + recsImp - 1;
     var saveName =
       exportTo +
-      dataUri.name.split(".csv")[0] +
+      dataUri.name.split("_data.csv")[0] +
       "_" +
       firstRec +
       "-" +
@@ -69,6 +60,7 @@ function main() {
       false,
       pdfPreset
     );
+    // added delay for pdf exporting
     $.sleep(2000);
     openTemplate.close(SaveOptions.no);
     if (debugMode == true) {
