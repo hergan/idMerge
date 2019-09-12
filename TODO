@@ -1,0 +1,12 @@
+
+
+
+idMerge_indata TODO:
+  ☐ add try/s to catch cancels and stop script
+  ☐ add file filters to openDialogs for windows
+  ☐ add padded zeros to rec count for naming convention?
+  ☐ Use execute() to run PDF_Merge?
+
+  idMerge TODO:
+    ☐ Merge vanilla and indata scripts together
+      ☐ If proto story exsists = indata file
