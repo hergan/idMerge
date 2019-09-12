@@ -1,10 +1,7 @@
-
-
-
 idMerge_indata TODO:
   ☐ add try/s to catch cancels and stop script
   ☐ add file filters to openDialogs for windows
-  ☐ add padded zeros to rec count for naming convention?
+  ☐ add padded zeros to rec count for naming convention? http://jsfiddle.net/2nQ4U/
   ☐ Use execute() to run PDF_Merge?
 
   idMerge TODO:
