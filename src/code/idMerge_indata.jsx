@@ -1,12 +1,12 @@
 //Dialog Mode:
-var dataUri = File.openDialog("Select data file", "CSV:*.csv, false");
-var templateUri = File.openDialog("Select template").fsName;
-var exportTo = Folder.selectDialog("Select export folder").fsName + "/";
+// var dataUri = File.openDialog("Select data file", "CSV:*.csv, false");
+// var templateUri = File.openDialog("Select template").fsName;
+// var exportTo = Folder.selectDialog("Select export folder").fsName + "/";
 
 //Debugging Mode:
-// var dataUri = File("~/code/idMerge/src/data/ext_data.csv");
-// var templateUri = File("~/code/idMerge/src/template/ext_0000_nrp.indt");
-// var exportTo = Folder.selectDialog().fsName + "/";
+var dataUri = File("Y:/AAAClientData/Woods/NRP_file_extracts_PURLsQRcodesMaps/WOODS_0978_FW_nrp_201909w38b_data.csv");
+var templateUri = File("W:/new_sys/live/nrpdocs/0978_NRP/0978_NRP_LHD_A/0978_NRP_LHD_A.indd").fsName;
+var exportTo = Folder("W:/new_sys/live/nrpdocs/Export/Hold").fsName + "/";
 
 // Set for true for console messages for debugging
 var debugMode = true;
@@ -27,6 +27,7 @@ while (recsImp == batchSize) {
   }
 }
 
+
 // merge and record data
 function main() {
   var myTemplate = app.open(templateUri);
@@ -42,7 +43,7 @@ function main() {
     lastRec
   );
   if (recsImp > 0) {
-    // import succeeded; reset lastREc just
+    // import succeeded; reset lastRec just
     // in case to reflect actual number of imported recs
     lastRec = firstRec + recsImp - 1;
     var saveName =
