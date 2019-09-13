@@ -1,9 +1,17 @@
-idMerge_indata TODO:
+ TODO:
+  ☐ Merge vanilla and indata scripts together
+    ☐ If proto story exsists = indata file
   ☐ add try/s to catch cancels and stop script
   ☐ add file filters to openDialogs for windows
-  ☐ add padded zeros to rec count for naming convention? http://jsfiddle.net/2nQ4U/
-  ☐ Use execute() to run PDF_Merge?
+  ☐ add folder defulat locations for data, templates and export.
+    ☐ template: go to client template folder based off client num in data file name?
+  ☐ Export pdf naming convention EX: clientNum_marketCode_mailType_mailDateMMDDYYYY_jobNum_000-000.pdf
+    ☐ get clientNum, marketCode, mailDate, and jobNum from data file 
+    ☐ get mailType from template file name
+    ☐ add padded zeros to rec count for naming convention? http://jsfiddle.net/2nQ4U/
 
-  idMerge TODO:
-    ☐ Merge vanilla and indata scripts together
-      ☐ If proto story exsists = indata file
+  IDEAS:
+    ☐ Use execute() to run PDF_Merge?
+    ☐ Email notification after finished merge
+    ☐ Grocery store letter merges can prob do bigger batch sizes/ maybe even whole file?
+    ☐ Sample Process
