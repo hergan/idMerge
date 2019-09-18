@@ -1,7 +1,9 @@
  TODO:
   ☐ Merge vanilla and indata scripts together
     ☐ If proto story exsists = indata file
+    ☐ Get proto name to base batch size, mail type, etc?
   ☐ add try/s to catch cancels and stop script
+    ☐ Show warning if file size is zero?
   ☐ add file filters to openDialogs for windows
   ☐ add folder defulat locations for data, templates and export.
     ☐ template: go to client template folder based off client num in data file name?
