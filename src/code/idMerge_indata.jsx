@@ -1,15 +1,22 @@
-//Dialog Mode:
-// var dataUri = File.openDialog("Select data file", "CSV:*.csv, false");
-// var templateUri = File.openDialog("Select template").fsName;
-// var exportTo = Folder.selectDialog("Select export folder").fsName + "/";
-
-//Debugging Mode:
-var dataUri = File("Y:/AAAClientData/Woods/NRP_file_extracts_PURLsQRcodesMaps/WOODS_0978_FW_nrp_201909w38b_data.csv");
-var templateUri = File("W:/new_sys/live/nrpdocs/0978_NRP/0978_NRP_LHD_A/0978_NRP_LHD_A.indd").fsName;
-var exportTo = Folder("W:/new_sys/live/nrpdocs/Export/Hold").fsName + "/";
-
 // Set for true for console messages for debugging
-var debugMode = true;
+var debugMode = false;
+
+if (debugMode == true) {
+  //Debugging Mode:
+  var batchSize = Folder("W:/new_sys/live/nrpdocs/Export/Hold").fsName + "/";
+  var dataUri = File(
+    "Y:/AAAClientData/Woods/NRP_file_extracts_PURLsQRcodesMaps/WOODS_0978_FW_nrp_201909w38b_data.csv"
+  );
+  var templateUri = File(
+    "W:/new_sys/live/nrpdocs/0978_NRP/0978_NRP_LHD_A/0978_NRP_LHD_A.indd"
+  ).fsName;
+  var exportTo = Folder("W:/new_sys/live/nrpdocs/Export/Hold").fsName + "/";
+} else {
+  //Dialog Mode:
+  var dataUri = File.openDialog("Select data file", "CSV:*.csv, false");
+  var templateUri = File.openDialog("Select template").fsName;
+  var exportTo = Folder("W:/new_sys/live/nrpdocs/Export/Hold").fsName + "/";
+}
 
 var firstRec = 1;
 var batchSize = 10;
@@ -26,7 +33,6 @@ while (recsImp == batchSize) {
     }
   }
 }
-
 
 // merge and record data
 function main() {
@@ -81,5 +87,6 @@ function main() {
     if (debugMode == true) {
       $.writeln("No more records to import. Merging finished.");
     }
+    alert("Merging Done!");
   }
 }
