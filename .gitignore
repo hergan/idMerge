@@ -1,5 +1,9 @@
 
 .vscode/*
+*.pdf
+*.csv
+*.indt
+*.indd
 .DS_Store
 src/code/Icon.png
 src/template/img/*
