@@ -3,9 +3,12 @@
     ☐ If proto story exsists = indata file
     ☐ Get proto name to base batch size, mail type, etc?
   ☐ add try/s to catch cancels and stop script
-    ☐ Show warning if file size is zero?
-  ☐ add file filters to openDialogs for windows
-  ☐ add folder defulat locations for data, templates and export.
+    ☐ Show warning if export pdf file size is zero?
+  ☐ Create user friendly dialog
+    ☐ add file filters to openDialogs for windows
+    ☐ add script done running alert.
+    ☐ add way to cancel script while merging.
+    ☐ add folder defulat locations for data, templates and export.
     ☐ template: go to client template folder based off client num in data file name?
   ☐ Export pdf naming convention EX: clientNum_marketCode_mailType_mailDateMMDDYYYY_jobNum_000-000.pdf
     ☐ get clientNum, marketCode, mailDate, and jobNum from data file 
@@ -17,3 +20,4 @@
     ☐ Email notification after finished merge
     ☐ Grocery store letter merges can prob do bigger batch sizes/ maybe even whole file?
     ☐ Sample Process
+    ☐ Add progress bar?
