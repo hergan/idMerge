@@ -199,7 +199,8 @@ function openDialog() {
     'edittext {properties: {name: "exportFolderInput", readonly: true}}'
   );
   exportFolderInput.preferredSize.width = 360;
-  exportFolderInput.text = "";
+  exportFolderInput.text = "W:/new_sys/live/nrpdocs/Export/Hold";
+  exportUri = exportFolderInput.text.fsName + "/";
 
   var exportBtn = panel5.add("button", undefined, undefined, {
     name: "exportBtn"
@@ -214,7 +215,6 @@ function openDialog() {
     exportFolderInput.text = exportUriOutput;
   }
   exportBtn.onClick = setExportFolder;
-
   // GROUP7 OK/Cancel
   // ======
   var group7 = dialog.add("group", undefined, { name: "group7" });
