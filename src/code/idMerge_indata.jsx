@@ -199,8 +199,8 @@ function openDialog() {
     'edittext {properties: {name: "exportFolderInput", readonly: true}}'
   );
   exportFolderInput.preferredSize.width = 360;
-  exportFolderInput.text = "W:/new_sys/live/nrpdocs/Export/Hold";
-  exportUri = exportFolderInput.text.fsName + "/";
+  exportFolderInput.text = "//cmpsevr1/prod/new_sys/live/nrpdocs/Export/Hold";
+  exportUri = exportFolderInput.text + "/";
 
   var exportBtn = panel5.add("button", undefined, undefined, {
     name: "exportBtn"
