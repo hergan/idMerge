@@ -10,10 +10,13 @@
     ☐ add way to cancel script while merging.
     ☐ add folder defulat locations for data, templates and export.
     ☐ template: go to client template folder based off client num in data file name?
-  ☐ Export pdf naming convention EX: clientNum_marketCode_mailType_mailDateMMDDYYYY_jobNum_000-000.pdf
-    ☐ get clientNum, marketCode, mailDate, and jobNum from data file 
+  ☐ Export merged PDF process
+    ✔ Export pdf naming convention EX: clientNum_marketCode_mailType_mailDateMMDDYYYY_jobNum_000-000.pdf @done(19-10-11 10:35)
+    ✔ get clientNum, marketCode, mailDate, and jobNum from data file @done(19-10-11 10:22)
     ☐ get mailType from template file name
-    ☐ add padded zeros to rec count for naming convention? http://jsfiddle.net/2nQ4U/
+    ☐ add padded zeros to rec count for naming convention? https://codepen.io/hergan/pen/oNNjrKN http://jsfiddle.net/2nQ4U/
+    ☐ export files to hold area while merging
+    ☐ Move files to PDF_Merge Folder Watcher  
 
   IDEAS:
     ☐ Use execute() to run PDF_Merge?

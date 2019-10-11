@@ -1,19 +1,30 @@
 // Set for true for console messages for debugging
-var debugMode = false;
-var debugDialogMode = false;
+var debugMode = true;
+var bypassDialogs = true;
 
 var batchSize;
 var templateUri;
-var dataUri;
+var dataFile;
 var exportUri;
 
 /*
 Code for Import https://scriptui.joonas.me — (Triple click to select): 
 {"activeId":28,"items":{"item-0":{"id":0,"type":"Dialog","parentId":false,"style":{"enabled":true,"varName":null,"windowType":"Dialog","creationProps":{"su1PanelCoordinates":false,"maximizeButton":false,"minimizeButton":false,"independent":false,"closeButton":true,"borderless":false,"resizeable":false},"text":"IdMerge","preferredSize":[0,0],"margins":16,"orientation":"column","spacing":10,"alignChildren":["left","top"]}},"item-1":{"id":1,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"column","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-2":{"id":2,"type":"StaticText","parentId":5,"style":{"enabled":true,"varName":null,"creationProps":{"truncate":"none","multiline":false,"scrolling":false},"softWrap":false,"text":"Choose Template File:","justify":"left","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-3":{"id":3,"type":"EditText","parentId":5,"style":{"enabled":true,"varName":null,"creationProps":{"noecho":false,"readonly":true,"multiline":false,"scrollable":false,"borderless":false,"enterKeySignalsOnChange":false},"softWrap":false,"text":"","justify":"left","preferredSize":[360,0],"alignment":null,"helpTip":null}},"item-5":{"id":5,"type":"Panel","parentId":1,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Template Selection","preferredSize":[0,0],"margins":10,"orientation":"row","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-6":{"id":6,"type":"Panel","parentId":7,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Data Selection","preferredSize":[0,0],"margins":10,"orientation":"row","spacing":10,"alignChildren":["center","top"],"alignment":null}},"item-7":{"id":7,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","fill"],"alignment":null}},"item-8":{"id":8,"type":"StaticText","parentId":6,"style":{"enabled":true,"varName":null,"creationProps":{"truncate":"none","multiline":false,"scrolling":false},"softWrap":false,"text":"Choose Data File:","justify":"left","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-12":{"id":12,"type":"Button","parentId":5,"style":{"enabled":true,"varName":null,"text":"Browse","justify":"center","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-13":{"id":13,"type":"Button","parentId":6,"style":{"enabled":true,"varName":null,"text":"Browse","justify":"center","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-14":{"id":14,"type":"EditText","parentId":6,"style":{"enabled":true,"varName":null,"creationProps":{"noecho":false,"readonly":true,"multiline":false,"scrollable":false,"borderless":false,"enterKeySignalsOnChange":false},"softWrap":false,"text":"","justify":"left","preferredSize":[393,0],"alignment":null,"helpTip":null}},"item-15":{"id":15,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","fill"],"alignment":null}},"item-16":{"id":16,"type":"Panel","parentId":15,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Export Location","preferredSize":[0,0],"margins":10,"orientation":"row","spacing":10,"alignChildren":["center","top"],"alignment":null}},"item-17":{"id":17,"type":"StaticText","parentId":16,"style":{"enabled":true,"varName":null,"creationProps":{"truncate":"none","multiline":false,"scrolling":false},"softWrap":false,"text":"Choose Export Folder:","justify":"left","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-18":{"id":18,"type":"EditText","parentId":16,"style":{"enabled":true,"varName":null,"creationProps":{"noecho":false,"readonly":true,"multiline":false,"scrollable":false,"borderless":false,"enterKeySignalsOnChange":false},"softWrap":false,"text":"","justify":"left","preferredSize":[360,0],"alignment":null,"helpTip":null}},"item-19":{"id":19,"type":"Button","parentId":16,"style":{"enabled":true,"varName":null,"text":"Browse","justify":"center","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-20":{"id":20,"type":"Button","parentId":22,"style":{"enabled":true,"varName":null,"text":"OK","justify":"center","preferredSize":[0,0],"alignment":"left","helpTip":null}},"item-21":{"id":21,"type":"Button","parentId":22,"style":{"enabled":true,"varName":null,"text":"Cancel","justify":"center","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-22":{"id":22,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","center"],"alignment":null}},"item-23":{"id":23,"type":"Group","parentId":30,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","top"],"alignment":"top"}},"item-24":{"id":24,"type":"Panel","parentId":23,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Merge Process","preferredSize":[0,0],"margins":10,"orientation":"column","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-25":{"id":25,"type":"StaticText","parentId":24,"style":{"enabled":true,"varName":null,"creationProps":{"truncate":"none","multiline":false,"scrolling":false},"softWrap":false,"text":"Choose Merge Process","justify":"left","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-26":{"id":26,"type":"RadioButton","parentId":24,"style":{"enabled":true,"varName":null,"text":"Generic Merge","preferredSize":[0,0],"alignment":null,"helpTip":null,"checked":true}},"item-27":{"id":27,"type":"RadioButton","parentId":24,"style":{"enabled":true,"varName":null,"text":"InData Merge","preferredSize":[0,0],"alignment":null,"helpTip":null,"checked":false}},"item-28":{"id":28,"type":"Group","parentId":23,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","top"],"alignment":"top"}},"item-29":{"id":29,"type":"Panel","parentId":28,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Batch Size","preferredSize":[0,0],"margins":10,"orientation":"column","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-30":{"id":30,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-32":{"id":32,"type":"EditText","parentId":29,"style":{"enabled":true,"varName":null,"creationProps":{"noecho":false,"readonly":false,"multiline":false,"scrollable":false,"borderless":false,"enterKeySignalsOnChange":false},"softWrap":false,"text":"50","justify":"center","preferredSize":[0,0],"alignment":"fill","helpTip":null}}},"order":[0,30,23,24,25,26,27,28,29,32,1,5,2,3,12,7,6,8,14,13,15,16,17,18,19,22,20,21],"settings":{"importJSON":true,"indentSize":false,"cepExport":false,"includeCSSJS":true,"showDialog":true,"functionWrapper":false,"compactCode":false,"itemReferenceList":"none"}}
 */
-
-var processInputs = openDialog();
-
+if (bypassDialogs == false) {
+  var processInputs = openDialog();
+} else {
+  //Debugging Mode:
+  var batchSize = 50;
+  var dataFile = File(
+    "/Users/jordanhaldane/code/idMerge/src/data/ACME_0004_GC_nrp_10022019_12345T1_data.csv"
+  );
+  var templateFile = File(
+    "/Users/jordanhaldane/code/idMerge/src/template/ext_0000_nrp.indt"
+  );
+  var exportUri =
+    Folder("/Users/jordanhaldane/code/idMerge/export").fsName + "/";
+}
 function openDialog() {
   // DIALOG
   // ======
@@ -166,10 +177,11 @@ function openDialog() {
   function getDataFile() {
     return File.openDialog("Select data file", "CSV:*.csv, false");
   }
+
+  // Gets csv file from dialog
   function setDataFile() {
-    var dataUriOutput = getDataFile();
-    dataUri = dataUriOutput;
-    dataUriInput.text = dataUriOutput;
+    var dataFile = getDataFile();
+    dataUriInput.text = dataFile;
   }
   dataBtn.onClick = setDataFile;
 
@@ -259,7 +271,7 @@ function openDialog() {
     // Data File Location Validation
     //
 
-    if (dataUri == null) {
+    if (dataFile == null) {
       alert("Please select a data file.");
     }
     //
@@ -272,7 +284,7 @@ function openDialog() {
       alert("Merge process is: " + mergeProcess);
       alert("Batch size is: " + batchSize);
       alert(templateUri);
-      alert(dataUri);
+      alert(dataFile);
       alert(exportUri);
     }
   } else {
@@ -280,23 +292,28 @@ function openDialog() {
     exit(); // TODO: FIX so dialog doesn't die.
   }
 }
-
-if (debugMode == true && debugDialogMode == true) {
-  //Debugging Mode:
-  // var batchSize = Folder("W:/new_sys/live/nrpdocs/Export/Hold").fsName + "/";
-  var dataUri = File(
-    "Y:/AAAClientData/Woods/NRP_file_extracts_PURLsQRcodesMaps/WOODS_0978_FW_nrp_201909w38b_data.csv"
-  );
-  var templateUri = File(
-    "W:/new_sys/live/nrpdocs/0978_NRP/0978_NRP_LHD_A/0978_NRP_LHD_A.indd"
-  ).fsName;
-  var exportTo = Folder("W:/new_sys/live/nrpdocs/Export/Hold").fsName + "/";
-} else if (debugMode == true && debugDialogMode == false) {
-  //Dialog Mode:
-  // var dataUri = File.openDialog("Select data file", "CSV:*.csv, false");
-  // var templateUri = File.openDialog("Select template").fsName;
-  // var exportTo = Folder("W:/new_sys/live/nrpdocs/Export/Hold").fsName + "/";
+function splitString(stringToSplit, separator) {
+  var arrayOfStrings = stringToSplit.split(separator);
+  if (debugMode == true) {
+    $.writeln('The original string is: "' + stringToSplit + '"');
+    $.writeln('The separator is: "' + separator + '"');
+    $.writeln(
+      arrayOfStrings.length + " elements: " + arrayOfStrings.join(" _ ")
+    );
+  }
+  return arrayOfStrings;
 }
+
+//parse file object name func
+function parseFile(fileToParse, separator) {
+  var fnString = String(fileToParse.name);
+  //can be used to match specific section of a file name. Set up to match CSV Data files specifically, need to make more flex later
+  // var fnData = String(fnString.match(/(0[0-9][0-9][0-9]\w+)[^_data.csv]/gi));
+  return splitString(fnString, separator);
+}
+const underscore = "_";
+var parsedDataFile = parseFile(dataFile, underscore);
+var parsedTemplateFile = parseFile(templateFile, underscore);
 
 var firstRec = 1;
 var recsImp = batchSize;
@@ -320,7 +337,7 @@ function main() {
   // set the lastRec to the final record in this batch
   var lastRec = firstRec + batchSize - 1;
   recsImp = openTemplate.importDataFrom(
-    dataUri,
+    dataFile,
     "proto",
     "merge",
     "",
@@ -333,7 +350,7 @@ function main() {
     lastRec = firstRec + recsImp - 1;
     var saveName =
       exportUri +
-      dataUri.name.split("data.csv")[0] +
+      dataFile.name.split("data.csv")[0] +
       firstRec +
       "-" +
       lastRec +
