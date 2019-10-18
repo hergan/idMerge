@@ -1,5 +1,5 @@
 // Set for true for console messages for debugging
-var debugMode = false;
+var debugMode = 0;
 var bypassDialogs = false;
 
 var batchSize;
@@ -7,17 +7,13 @@ var templateFile;
 var dataFile;
 var exportUri;
 
-/*
-Code for Import https://scriptui.joonas.me — (Triple click to select): 
-{"activeId":28,"items":{"item-0":{"id":0,"type":"Dialog","parentId":false,"style":{"enabled":true,"varName":null,"windowType":"Dialog","creationProps":{"su1PanelCoordinates":false,"maximizeButton":false,"minimizeButton":false,"independent":false,"closeButton":true,"borderless":false,"resizeable":false},"text":"IdMerge","preferredSize":[0,0],"margins":16,"orientation":"column","spacing":10,"alignChildren":["left","top"]}},"item-1":{"id":1,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"column","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-2":{"id":2,"type":"StaticText","parentId":5,"style":{"enabled":true,"varName":null,"creationProps":{"truncate":"none","multiline":false,"scrolling":false},"softWrap":false,"text":"Choose Template File:","justify":"left","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-3":{"id":3,"type":"EditText","parentId":5,"style":{"enabled":true,"varName":null,"creationProps":{"noecho":false,"readonly":true,"multiline":false,"scrollable":false,"borderless":false,"enterKeySignalsOnChange":false},"softWrap":false,"text":"","justify":"left","preferredSize":[360,0],"alignment":null,"helpTip":null}},"item-5":{"id":5,"type":"Panel","parentId":1,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Template Selection","preferredSize":[0,0],"margins":10,"orientation":"row","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-6":{"id":6,"type":"Panel","parentId":7,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Data Selection","preferredSize":[0,0],"margins":10,"orientation":"row","spacing":10,"alignChildren":["center","top"],"alignment":null}},"item-7":{"id":7,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","fill"],"alignment":null}},"item-8":{"id":8,"type":"StaticText","parentId":6,"style":{"enabled":true,"varName":null,"creationProps":{"truncate":"none","multiline":false,"scrolling":false},"softWrap":false,"text":"Choose Data File:","justify":"left","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-12":{"id":12,"type":"Button","parentId":5,"style":{"enabled":true,"varName":null,"text":"Browse","justify":"center","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-13":{"id":13,"type":"Button","parentId":6,"style":{"enabled":true,"varName":null,"text":"Browse","justify":"center","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-14":{"id":14,"type":"EditText","parentId":6,"style":{"enabled":true,"varName":null,"creationProps":{"noecho":false,"readonly":true,"multiline":false,"scrollable":false,"borderless":false,"enterKeySignalsOnChange":false},"softWrap":false,"text":"","justify":"left","preferredSize":[393,0],"alignment":null,"helpTip":null}},"item-15":{"id":15,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","fill"],"alignment":null}},"item-16":{"id":16,"type":"Panel","parentId":15,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Export Location","preferredSize":[0,0],"margins":10,"orientation":"row","spacing":10,"alignChildren":["center","top"],"alignment":null}},"item-17":{"id":17,"type":"StaticText","parentId":16,"style":{"enabled":true,"varName":null,"creationProps":{"truncate":"none","multiline":false,"scrolling":false},"softWrap":false,"text":"Choose Export Folder:","justify":"left","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-18":{"id":18,"type":"EditText","parentId":16,"style":{"enabled":true,"varName":null,"creationProps":{"noecho":false,"readonly":true,"multiline":false,"scrollable":false,"borderless":false,"enterKeySignalsOnChange":false},"softWrap":false,"text":"","justify":"left","preferredSize":[360,0],"alignment":null,"helpTip":null}},"item-19":{"id":19,"type":"Button","parentId":16,"style":{"enabled":true,"varName":null,"text":"Browse","justify":"center","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-20":{"id":20,"type":"Button","parentId":22,"style":{"enabled":true,"varName":null,"text":"OK","justify":"center","preferredSize":[0,0],"alignment":"left","helpTip":null}},"item-21":{"id":21,"type":"Button","parentId":22,"style":{"enabled":true,"varName":null,"text":"Cancel","justify":"center","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-22":{"id":22,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","center"],"alignment":null}},"item-23":{"id":23,"type":"Group","parentId":30,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","top"],"alignment":"top"}},"item-24":{"id":24,"type":"Panel","parentId":23,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Merge Process","preferredSize":[0,0],"margins":10,"orientation":"column","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-25":{"id":25,"type":"StaticText","parentId":24,"style":{"enabled":true,"varName":null,"creationProps":{"truncate":"none","multiline":false,"scrolling":false},"softWrap":false,"text":"Choose Merge Process","justify":"left","preferredSize":[0,0],"alignment":null,"helpTip":null}},"item-26":{"id":26,"type":"RadioButton","parentId":24,"style":{"enabled":true,"varName":null,"text":"Generic Merge","preferredSize":[0,0],"alignment":null,"helpTip":null,"checked":true}},"item-27":{"id":27,"type":"RadioButton","parentId":24,"style":{"enabled":true,"varName":null,"text":"InData Merge","preferredSize":[0,0],"alignment":null,"helpTip":null,"checked":false}},"item-28":{"id":28,"type":"Group","parentId":23,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","top"],"alignment":"top"}},"item-29":{"id":29,"type":"Panel","parentId":28,"style":{"enabled":true,"varName":null,"creationProps":{"borderStyle":"etched","su1PanelCoordinates":false},"text":"Batch Size","preferredSize":[0,0],"margins":10,"orientation":"column","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-30":{"id":30,"type":"Group","parentId":0,"style":{"enabled":true,"varName":null,"preferredSize":[0,0],"margins":0,"orientation":"row","spacing":10,"alignChildren":["left","top"],"alignment":null}},"item-32":{"id":32,"type":"EditText","parentId":29,"style":{"enabled":true,"varName":null,"creationProps":{"noecho":false,"readonly":false,"multiline":false,"scrollable":false,"borderless":false,"enterKeySignalsOnChange":false},"softWrap":false,"text":"50","justify":"center","preferredSize":[0,0],"alignment":"fill","helpTip":null}}},"order":[0,30,23,24,25,26,27,28,29,32,1,5,2,3,12,7,6,8,14,13,15,16,17,18,19,22,20,21],"settings":{"importJSON":true,"indentSize":false,"cepExport":false,"includeCSSJS":true,"showDialog":true,"functionWrapper":false,"compactCode":false,"itemReferenceList":"none"}}
-*/
 if (bypassDialogs == false) {
   openDialog();
 } else {
-  //Debugging Mode:
-  var batchSize = 5;
+  // bypassDialog mode:
+  var batchSize = 200;
   var dataFile = File(
-    "/Users/jordanhaldane/code/idMerge/src/data/ACME_0004_GC_nrp_10022019_12345T1_data.csv"
+    "/Users/jordanhaldane/code/idMerge/src/data/ACME_0004_GC_nrp_10232019_2028J4_data.csv"
   );
   var templateFile = File(
     "/Users/jordanhaldane/code/idMerge/src/template/0004_GC_NRP_insert.indt"
@@ -241,8 +237,6 @@ function openDialog() {
 
   var button5 = group7.add("button", undefined, "Cancel", { name: "cancel" });
 
-  // dialog.show();
-
   //validation
   if (dialog.show() == 1) {
     //
@@ -261,12 +255,14 @@ function openDialog() {
       batchSize = parsedBatchSizeInput;
     } else {
       alert("Batch size is not a number");
+      openDialog();
     }
     //
     // Template File Location Validation
     //
     if (templateFile == null) {
       alert("Please select a template file.");
+      openDialog();
     }
     //
     // Data File Location Validation
@@ -274,19 +270,21 @@ function openDialog() {
 
     if (dataFile == null) {
       alert("Please select a data file.");
+      openDialog();
     }
     //
     // Export Location Validation
     //
     if (exportUri == null) {
       alert("Please select a export folder.");
+      openDialog();
     }
-    if (debugMode == true) {
-      alert("Merge process is: " + mergeProcess);
-      alert("Batch size is: " + batchSize);
-      alert(templateFile);
-      alert(dataFile);
-      alert(exportUri);
+    if (debugMode == 1) {
+      $.writeln("Merge process is: " + mergeProcess);
+      $.writeln("Batch size is: " + batchSize);
+      $.writeln(templateFile);
+      $.writeln(dataFile);
+      $.writeln(exportUri);
     }
   } else {
     alert("Stopping Script");
@@ -295,7 +293,7 @@ function openDialog() {
 }
 function splitString(stringToSplit, separator) {
   var arrayOfStrings = stringToSplit.split(separator);
-  if (debugMode == true) {
+  if (debugMode == 2) {
     $.writeln('The original string is: "' + stringToSplit + '"');
     $.writeln('The separator is: "' + separator + '"');
     $.writeln(
@@ -308,8 +306,6 @@ function splitString(stringToSplit, separator) {
 //parse file object name func
 function parseFile(fileToParse, separator) {
   var fnString = String(fileToParse.name);
-  //can be used to match specific section of a file name. Set up to match CSV Data files specifically, need to make more flex later
-  // var fnData = String(fnString.match(/(0[0-9][0-9][0-9]\w+)[^_data.csv]/gi));
   return splitString(fnString, separator);
 }
 const underscore = "_";
@@ -331,17 +327,47 @@ var firstRec = 1;
 var recsImp = batchSize;
 var pad = "00";
 var batchStartIndex = 1;
+var lastBatch = false;
 
 while (recsImp == batchSize) {
-  batchIndex = (pad + batchStartIndex++).slice(-4);
+  var batchIndex = (pad + batchStartIndex++).slice(-3);
   main();
-  if (debugMode == true) {
+  if (debugMode == 1) {
     $.writeln(recsImp + " recsImp out of a batchSize of " + batchSize);
-    if (recsImp != batchSize) {
-      $.writeln("No more recs to import. Merging finished.");
-    } else {
+    if (recsImp == batchSize) {
       $.writeln("Merging in process...");
     }
+  }
+  if (lastBatch == true || recsImp != batchSize) {
+    // Rename files to append last batchIndex.
+    // Move pdfs out of hold and into file watcher.
+    if (lastBatch == true) {
+      // Set batchTotal to batchIndex minus one to get total batches merged.
+      var batchTotal = (pad + (batchIndex - 1)).slice(-3);
+    } else {
+      var batchTotal = batchIndex;
+    }
+
+    for (var i = 1; i <= batchTotal; i++) {
+      renameMergedPDF();
+    }
+    function renameMergedPDF() {
+      var oldPdfName = exportFileName + (pad + i).slice(-3) + ".pdf";
+      var newPdfName = oldPdfName.replace(
+        oldPdfName,
+        exportFileName + (pad + i).slice(-3) + "-" + batchTotal + ".pdf"
+      );
+      var oldPdf = File(exportUri + oldPdfName);
+      oldPdfFilePath = oldPdf.fullName;
+      oldPdf.rename(newPdfName);
+      var renamedPDF = oldPdf;
+      var liveFolder = File(renamedPDF);
+      liveFolder.changePath("../../");
+      renamedPDF.copy(liveFolder + "/" + newPdfName);
+      oldPdf.remove();
+    }
+    $.writeln("No more recs to import. Merging finished.");
+    alert("Merging Done!");
   }
 }
 
@@ -374,9 +400,11 @@ function main() {
     // added delay for pdf exporting
     $.sleep(2000);
     openTemplate.close(SaveOptions.no);
-    if (debugMode == true) {
+    if (debugMode == 1) {
       $.writeln(
-        "Exported PDF located here: " +
+        "Batch " +
+          batchIndex +
+          " exported PDF located here: " +
           saveName +
           " for records " +
           firstRec +
@@ -386,37 +414,10 @@ function main() {
     }
     // set firstRec to the beginning of the first rec of the next batch
     firstRec = lastRec + 1;
-    batchIndex++;
+    // batchIndex++;
   } else {
-    // No more records to merge. Close ID template
+    // No more records to merge. Close ID template, start cleanup func.
     openTemplate.close(SaveOptions.no);
-    if (debugMode == true) {
-      $.writeln("No more records to import. Merging finished.");
-    }
-    // Rename files to append last batchIndex.
-    // Move pdfs out of hold and into file watcher.
-    // Set batchTotal to batchIndex minus one to get total batches merged.
-    var batchTotal = (pad + (batchIndex - 1)).slice(-4);
-    for (var i = 1; i <= batchTotal; i++) {
-      renameMergedPDF();
-      // $.writeln("Old fName: " + oldFName);
-    }
-    function renameMergedPDF() {
-      var oldPdfName = exportFileName + (pad + i).slice(-4) + ".pdf";
-      var newPdfName = oldPdfName.replace(
-        oldPdfName,
-        exportFileName + (pad + i).slice(-4) + "-" + batchTotal + ".pdf"
-      );
-      var oldPdf = File(exportUri + oldPdfName);
-      oldPdfFilePath = oldPdf.fullName;
-      oldPdf.rename(newPdfName);
-      var renamedPDF = oldPdf;
-      var liveFolder = File(renamedPDF);
-      liveFolder.changePath("../../");
-      // var newExportFilePath = oldExportFile.changePath("../../" + oldExportName);
-      renamedPDF.copy(liveFolder + "/" + newPdfName);
-      oldPdf.remove();
-    }
-    alert("Merging Done!");
+    lastBatch = true;
   }
 }
