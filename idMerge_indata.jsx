@@ -312,15 +312,17 @@ const underscore = "_";
 var dataSpecs = parseFile(dataFile, underscore);
 var templateSpecs = parseFile(templateFile, underscore);
 var exportFileName =
-  dataSpecs[1] +
+  dataSpecs[1] + //clientNum
   "_" +
-  dataSpecs[2] +
+  dataSpecs[2] + //marketCode
   "_" +
-  templateSpecs[3].split(".indt")[0] + //need to make less specific...
+  dataSpecs[3] + //procCode
   "_" +
-  dataSpecs[4] +
+  templateSpecs[3].split(".indt")[0] + // mailType; need to make less specific...
   "_" +
-  dataSpecs[5] +
+  dataSpecs[4] + //mailDate
+  "_" +
+  dataSpecs[5] + // jobNum
   "_";
 
 var firstRec = 1;
