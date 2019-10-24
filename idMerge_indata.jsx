@@ -123,7 +123,8 @@ function openDialog() {
   var templateUriInput = panel3.add(
     'edittext {properties: {name: "templateUriInput"}}'
   );
-  templateUriInput.text = "";
+  var templateDefault = new File("//cmpsevr1/prod/new_sys/live/nrpdocs/");
+  templateUriInput.text = templateDefault.fsName;
   templateUriInput.preferredSize.width = 360;
 
   var templateBtn = panel3.add("button", undefined, undefined, {
@@ -131,12 +132,15 @@ function openDialog() {
   });
   templateBtn.text = "Browse";
   function getTemplateFile() {
-    return File.openDialog("Select template");
+    return templateDefault.openDlg(
+      "Select template",
+      "InDesign Template:*.indt, false"
+    );
   }
   function setTemplateFile() {
     var templateUriOutput = getTemplateFile();
     templateFile = templateUriOutput;
-    templateUriInput.text = templateUriOutput;
+    templateUriInput.text = templateUriOutput.fsName;
   }
   templateBtn.onClick = setTemplateFile;
 
@@ -165,20 +169,21 @@ function openDialog() {
   var dataUriInput = panel4.add(
     'edittext {properties: {name: "dataUriInput"}}'
   );
-  dataUriInput.text = "";
+  var dataDefault = new File("//cmpkc_sales/SALES/AAAClientData/");
+  dataUriInput.text = dataDefault.fsName;
   dataUriInput.preferredSize.width = 393;
 
   var dataBtn = panel4.add("button", undefined, undefined, { name: "dataBtn" });
   dataBtn.text = "Browse";
   function getDataFile() {
-    return File.openDialog("Select data file", "CSV:*.csv, false");
+    return dataDefault.openDlg("Select data file", "CSV:*.csv, false");
   }
 
   // Gets csv file from dialog
   function setDataFile() {
     var dataFileOutput = getDataFile();
     dataFile = dataFileOutput;
-    dataUriInput.text = dataFile;
+    dataUriInput.text = dataFile.fsName;
   }
   dataBtn.onClick = setDataFile;
 
