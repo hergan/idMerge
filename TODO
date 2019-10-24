@@ -1,24 +1,30 @@
  TODO:
-  ☐ Merge vanilla and indata scripts together
-    ☐ If proto story exsists = indata file
-    ☐ Get proto name to base batch size, mail type, etc?
-  ☐ add try/s to catch cancels and stop script
-    ☐ Show warning if export pdf file size is zero?
-  ☐ Create user friendly dialog
-    ✔ add file filters to openDialogs for windows @done(19-10-18 16:27)
-    ✔ add script done running alert. @done(19-10-18 16:27)
-    ☐ add way to cancel script while merging.
-    ☐ add folder defulat locations for data, templates and export.
-    ☐ template: go to client template folder based off client num in data file name?
-  ☐ Export merged PDF process
-    ✔ Export pdf naming convention EX: clientNum_marketCode_mailType_mailDateMMDDYYYY_jobNum_000-000.pdf @done(19-10-11 10:35)
-    ✔ get clientNum, marketCode, mailDate, and jobNum from data file @done(19-10-11 10:22)
-    ✔ get mailType from template file name @done(19-10-11 14:59)
-    ✔ add padded zeros to rec count for naming convention? https://codepen.io/hergan/pen/oNNjrKN http://jsfiddle.net/2nQ4U/ @done(19-10-18 16:26)
-    ✔ export files to hold area while merging @done(19-10-18 16:26)
-    ✔ Move files to PDF_Merge Folder Watcher @done(19-10-18 16:26)
+  ☐ Features
+    ☐ Merge vanilla and indata scripts together
+      ☐ If proto story exsists = indata file
+      ☐ Get proto name to base batch size, mail type, etc?
+    ☐ Export merged PDF process
+      ✔ Export pdf naming convention EX: clientNum_marketCode_mailType_mailDateMMDDYYYY_jobNum_000-000.pdf @done(19-10-11 10:35)
+      ✔ get clientNum, marketCode, mailDate, and jobNum from data file @done(19-10-11 10:22)
+      ✔ get mailType from template file name @done(19-10-11 14:59)
+      ✔ add padded zeros to rec count for naming convention? https://codepen.io/hergan/pen/oNNjrKN http://jsfiddle.net/2nQ4U/ @done(19-10-18 16:26)
+      ✔ export files to hold area while merging @done(19-10-18 16:26)
+      ✔ Move files to PDF_Merge Folder Watcher @done(19-10-18 16:26)
+      ☐ Add clean-up process for vanilla merges
+  ☐ UX
+    ☐ add try/s to catch cancels and stop script
+      ☐ Show warning if export pdf file size is zero?
+    ☐ Create user friendly dialog
+      ✔ add file filters to openDialogs for windows @done(19-10-18 16:27)
+      ✔ add script done running alert. @done(19-10-18 16:27)
+      ☐ add way to cancel script while merging.
+      ✔ add folder defulat locations for data, templates and export. @done(19-10-23 19:12)
+      ☐ template: go to client template folder based off client num in data file name?
 
   IDEAS:
+    ☐ Set settings for optimizing ID speed
+      ☐ turn off preflight
+      ☐ fast display mode
     ☐ Use execute() to run PDF_Merge?
     ☐ Email notification after finished merge
     ☐ Grocery store letter merges can prob do bigger batch sizes/ maybe even whole file?
