@@ -10,6 +10,8 @@
       ✔ add padded zeros to rec count for naming convention? https://codepen.io/hergan/pen/oNNjrKN http://jsfiddle.net/2nQ4U/ @done(19-10-18 16:26)
       ✔ export files to hold area while merging @done(19-10-18 16:26)
       ✔ Move files to PDF_Merge Folder Watcher @done(19-10-18 16:26)
+      ☐ Have export wait time incrase w/ batchSize. 
+      ☐ Add PDF Export Presets selection for diff. types of mailTypes.
       ☐ Add clean-up process for vanilla merges
   ☐ UX
     ☐ add try/s to catch cancels and stop script
@@ -22,6 +24,7 @@
       ☐ template: go to client template folder based off client num in data file name?
 
   IDEAS:
+    ☐ Add feature where user can pick record numbers to start and end with.
     ☐ Set settings for optimizing ID speed
       ☐ turn off preflight
       ☐ fast display mode
