@@ -13,10 +13,10 @@ if (bypassDialogs == false) {
   // bypassDialog mode:
   var batchSize = 200;
   var dataFile = File(
-    "/Users/jordanhaldane/code/idMerge/src/data/ACME_0004_GC_nrp_10232019_2028J4_data.csv"
+    "/Users/jordanhaldane/code/idMerge/src/data/0004_GC_nrp_ml_10022019_12345T1.csv"
   );
   var templateFile = File(
-    "/Users/jordanhaldane/code/idMerge/src/template/0004_GC_NRP_insert.indt"
+    "/Users/jordanhaldane/code/idMerge/src/template/0004_GC_NRP_lett.indt"
   );
   var exportUri =
     Folder("/Users/jordanhaldane/code/idMerge/export/hold").fsName + "/";
@@ -316,115 +316,176 @@ function parseFile(fileToParse, separator) {
 const underscore = "_";
 var dataSpecs = parseFile(dataFile, underscore);
 var templateSpecs = parseFile(templateFile, underscore);
-var exportFileName =
-  dataSpecs[1] + //clientNum
-  "_" +
-  dataSpecs[2] + //marketCode
-  "_" +
-  dataSpecs[3] + //procCode
-  "_" +
-  templateSpecs[3].split(".indt")[0] + // mailType; need to make less specific...
-  "_" +
-  dataSpecs[4] + //mailDate
-  "_" +
-  dataSpecs[5] + // jobNum
-  "_";
+//Determines mergeType based off of "ml" a flag in the data file name.
+function defMergeType(dataFileName) {
+  if (dataFileName[3] === "ml") {
+    return 0;
+  } else {
+    return 1;
+  }
+}
+var mergeType = defMergeType(dataSpecs);
+function defExportFileName(mergeProcess) {
+  if (mergeProcess === 0) {
+    // vanilla ID merge 0004_GC_nrp_ml_10022019_12345T1.csv
+    return (
+      dataSpecs[0] +
+      "_" +
+      dataSpecs[1] + //marketCode
+      "_" +
+      dataSpecs[2] + //procCode
+      "_" +
+      templateSpecs[3].split(".indt")[0] + // mailType; need to make less specific...
+      "_" +
+      dataSpecs[4] + //mailDate
+      "_" +
+      dataSpecs[5].split(".csv")[0] // jobNum
+    );
+  } else {
+    // indData merge ACME_0004_GC_nrp_10022019_12345T1_data.csv
+    return (
+      dataSpecs[1] + //clientNum
+      "_" +
+      dataSpecs[2] + //marketCode
+      "_" +
+      dataSpecs[3] + //procCode
+      "_" +
+      templateSpecs[3].split(".indt")[0] + // mailType; need to make less specific...
+      "_" +
+      dataSpecs[4] + //mailDate
+      "_" +
+      dataSpecs[5] + // jobNum
+      "_"
+    );
+  }
+}
+var exportFileName = defExportFileName(mergeType);
 
-var firstRec = 1;
-var recsImp = batchSize;
-var pad = "00";
-var batchStartIndex = 1;
-var lastBatch = false;
+function vanillaMerge() {
+  var myTemplate = app.open(templateFile); // opens ID File
+  // update coupon image links for swy den letter...
+  var openTemplate = app.activeDocument; //
+  exportUri = "//cmpsevr1/prod/new_sys/live/nrpdocs/Export" + "/";
+  var saveName = exportUri + exportFileName + ".pdf";
+  with (myTemplate.dataMergeOptions) {
+    centerImage = true;
+    createNewDocument = false;
+    linkImages = false;
+  }
+  if (dataFile == null) return;
+  openTemplate.dataMergeProperties.selectDataSource(File(dataFile));
+  openTemplate.dataMergeProperties.exportFile(saveName, "[High Quality Print]");
+  sleep(2000); //for exporting wait time.
+  //test w/ big file
+  openTemplate.close(SaveOptions.no);
+}
+function inDataMerge() {
+  var firstRec = 1;
+  var recsImp = batchSize;
+  var pad = "00";
+  var batchStartIndex = 1;
+  var lastBatch = false;
 
-while (recsImp == batchSize) {
-  var batchIndex = (pad + batchStartIndex++).slice(-3);
-  main();
-  if (debugMode == 1) {
-    $.writeln(recsImp + " recsImp out of a batchSize of " + batchSize);
-    if (recsImp == batchSize) {
-      $.writeln("Merging in process...");
+  while (recsImp == batchSize) {
+    var batchIndex = (pad + batchStartIndex++).slice(-3);
+    inDataMergeLoop();
+    if (debugMode == 1) {
+      $.writeln(recsImp + " recsImp out of a batchSize of " + batchSize);
+      if (recsImp == batchSize) {
+        $.writeln("Merging in process...");
+      }
+    }
+    if (lastBatch == true || recsImp != batchSize) {
+      // Rename files to append last batchIndex.
+      // Move pdfs out of hold and into file watcher.
+      if (lastBatch == true) {
+        // Set batchTotal to batchIndex minus one to get total batches merged.
+        var batchTotal = (pad + (batchIndex - 1)).slice(-3);
+      } else {
+        var batchTotal = batchIndex;
+      }
+
+      for (var i = 1; i <= batchTotal; i++) {
+        renameMergedPDF();
+      }
+      function renameMergedPDF() {
+        var oldPdfName = exportFileName + (pad + i).slice(-3) + ".pdf";
+        var newPdfName = oldPdfName.replace(
+          oldPdfName,
+          exportFileName + (pad + i).slice(-3) + "-" + batchTotal + ".pdf"
+        );
+        var oldPdf = File(exportUri + oldPdfName);
+        oldPdfFilePath = oldPdf.fullName;
+        oldPdf.rename(newPdfName);
+        var renamedPDF = oldPdf;
+        var liveFolder = File(renamedPDF);
+        liveFolder.changePath("../../");
+        renamedPDF.copy(liveFolder + "/" + newPdfName);
+        oldPdf.remove();
+      }
+      $.writeln("No more recs to import. Merging finished.");
+      alert("Merging Done!");
     }
   }
-  if (lastBatch == true || recsImp != batchSize) {
-    // Rename files to append last batchIndex.
-    // Move pdfs out of hold and into file watcher.
-    if (lastBatch == true) {
-      // Set batchTotal to batchIndex minus one to get total batches merged.
-      var batchTotal = (pad + (batchIndex - 1)).slice(-3);
-    } else {
-      var batchTotal = batchIndex;
-    }
 
-    for (var i = 1; i <= batchTotal; i++) {
-      renameMergedPDF();
-    }
-    function renameMergedPDF() {
-      var oldPdfName = exportFileName + (pad + i).slice(-3) + ".pdf";
-      var newPdfName = oldPdfName.replace(
-        oldPdfName,
-        exportFileName + (pad + i).slice(-3) + "-" + batchTotal + ".pdf"
+  // merge and record data
+  function inDataMergeLoop() {
+    var myTemplate = app.open(templateFile);
+    var openTemplate = app.activeDocument;
+    // set the lastRec to the final record in this batch
+    var lastRec = firstRec + batchSize - 1;
+    recsImp = openTemplate.importDataFrom(
+      dataFile,
+      "proto",
+      "merge",
+      "",
+      firstRec,
+      lastRec
+    );
+    if (recsImp > 0) {
+      // import succeeded; reset lastRec just
+      // in case to reflect actual number of imported recs
+      lastRec = firstRec + recsImp - 1;
+      var saveName = exportUri + exportFileName + batchIndex + ".pdf";
+      var pdfPreset = app.pdfExportPresets.itemByName("[High Quality Print]");
+      openTemplate.exportFile(
+        ExportFormat.PDF_TYPE,
+        File(saveName),
+        false,
+        pdfPreset
       );
-      var oldPdf = File(exportUri + oldPdfName);
-      oldPdfFilePath = oldPdf.fullName;
-      oldPdf.rename(newPdfName);
-      var renamedPDF = oldPdf;
-      var liveFolder = File(renamedPDF);
-      liveFolder.changePath("../../");
-      renamedPDF.copy(liveFolder + "/" + newPdfName);
-      oldPdf.remove();
+      // added delay for pdf exporting
+      $.sleep(2000);
+      openTemplate.close(SaveOptions.no);
+      if (debugMode == 1) {
+        $.writeln(
+          "Batch " +
+            batchIndex +
+            " exported PDF located here: " +
+            saveName +
+            " for records " +
+            firstRec +
+            " through " +
+            lastRec
+        );
+      }
+      // set firstRec to the beginning of the first rec of the next batch
+      firstRec = lastRec + 1;
+      // batchIndex++;
+    } else {
+      // No more records to merge. Close ID template, start cleanup func.
+      openTemplate.close(SaveOptions.no);
+      lastBatch = true;
     }
-    $.writeln("No more recs to import. Merging finished.");
-    alert("Merging Done!");
   }
 }
 
-// merge and record data
-function main() {
-  var myTemplate = app.open(templateFile);
-  var openTemplate = app.activeDocument;
-  // set the lastRec to the final record in this batch
-  var lastRec = firstRec + batchSize - 1;
-  recsImp = openTemplate.importDataFrom(
-    dataFile,
-    "proto",
-    "merge",
-    "",
-    firstRec,
-    lastRec
-  );
-  if (recsImp > 0) {
-    // import succeeded; reset lastRec just
-    // in case to reflect actual number of imported recs
-    lastRec = firstRec + recsImp - 1;
-    var saveName = exportUri + exportFileName + batchIndex + ".pdf";
-    var pdfPreset = app.pdfExportPresets.itemByName("[High Quality Print]");
-    openTemplate.exportFile(
-      ExportFormat.PDF_TYPE,
-      File(saveName),
-      false,
-      pdfPreset
-    );
-    // added delay for pdf exporting
-    $.sleep(2000);
-    openTemplate.close(SaveOptions.no);
-    if (debugMode == 1) {
-      $.writeln(
-        "Batch " +
-          batchIndex +
-          " exported PDF located here: " +
-          saveName +
-          " for records " +
-          firstRec +
-          " through " +
-          lastRec
-      );
-    }
-    // set firstRec to the beginning of the first rec of the next batch
-    firstRec = lastRec + 1;
-    // batchIndex++;
-  } else {
-    // No more records to merge. Close ID template, start cleanup func.
-    openTemplate.close(SaveOptions.no);
-    lastBatch = true;
-  }
+switch (mergeType) {
+  case 0:
+    vanillaMerge();
+    break;
+  case 1:
+  default:
+    inDataMerge();
+    break;
 }
