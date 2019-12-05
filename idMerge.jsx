@@ -10,7 +10,7 @@ var exportUri;
 if (bypassDialogs == false) {
   openDialog();
 } else {
-  // bypassDialog mode:
+  // bypassDialog mode
   var batchSize = 200;
   var dataFile = File(
     "/Users/jordanhaldane/code/idMerge/src/data/0004_GC_nrp_ml_10022019_12345T1.csv"
@@ -316,7 +316,7 @@ function parseFile(fileToParse, separator) {
 const underscore = "_";
 var dataSpecs = parseFile(dataFile, underscore);
 var templateSpecs = parseFile(templateFile, underscore);
-//Determines mergeType based off of "ml" a flag in the data file name.
+//Determines mergeType based off of a "ml" flag in the data file name.
 function defMergeType(dataFileName) {
   if (dataFileName[3] === "ml") {
     return 0;
@@ -327,7 +327,7 @@ function defMergeType(dataFileName) {
 var mergeType = defMergeType(dataSpecs);
 function defExportFileName(mergeProcess) {
   if (mergeProcess === 0) {
-    // vanilla ID merge 0004_GC_nrp_ml_10022019_12345T1.csv
+    // vanilla ID merge EX: 0004_GC_nrp_ml_10022019_12345T1.csv
     return (
       dataSpecs[0] +
       "_" +
@@ -339,10 +339,11 @@ function defExportFileName(mergeProcess) {
       "_" +
       dataSpecs[4] + //mailDate
       "_" +
-      dataSpecs[5].split(".csv")[0] // jobNum
+      dataSpecs[5].split(".csv")[0] + // jobNum
+      "_001-001" // added for PDF_MERGE file watcher to "see" a completed ID merged pdf since vanilla merges don't process in batches
     );
   } else {
-    // indData merge ACME_0004_GC_nrp_10022019_12345T1_data.csv
+    // indData merge EX: ACME_0004_GC_nrp_10022019_12345T1_data.csv
     return (
       dataSpecs[1] + //clientNum
       "_" +
@@ -365,7 +366,12 @@ function vanillaMerge() {
   var myTemplate = app.open(templateFile); // opens ID File
   // update coupon image links for swy den letter...
   var openTemplate = app.activeDocument; //
-  exportUri = "//cmpsevr1/prod/new_sys/live/nrpdocs/Export" + "/";
+  if (bypassDialogs == false) {
+    exportUri = "//cmpsevr1/prod/new_sys/live/nrpdocs/Export" + "/";
+  } else {
+    exportUri =
+      Folder("/Users/jordanhaldane/code/idMerge/export/hold").fsName + "/";
+  }
   var saveName = exportUri + exportFileName + ".pdf";
   with (myTemplate.dataMergeOptions) {
     centerImage = true;
@@ -375,9 +381,11 @@ function vanillaMerge() {
   if (dataFile == null) return;
   openTemplate.dataMergeProperties.selectDataSource(File(dataFile));
   openTemplate.dataMergeProperties.exportFile(saveName, "[High Quality Print]");
-  sleep(2000); //for exporting wait time.
+  $.sleep(2000); //for exporting wait time.
   //test w/ big file
   openTemplate.close(SaveOptions.no);
+  alert("Merging Done!");
+  openDialog();
 }
 function inDataMerge() {
   var firstRec = 1;
@@ -425,6 +433,7 @@ function inDataMerge() {
       }
       $.writeln("No more recs to import. Merging finished.");
       alert("Merging Done!");
+      openDialog();
     }
   }
 
