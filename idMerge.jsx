@@ -13,10 +13,10 @@ if (bypassDialogs == false) {
   // bypassDialog mode
   var batchSize = 200;
   var dataFile = File(
-    "/Users/jordanhaldane/code/idMerge/src/data/0004_GC_nrp_ml_10022019_12345T1.csv"
+    "//cmpsevr1/prod/new_sys/WeeklyProc/live/nrpmail/merge_file/0786_exb_nrp_ml_11202019_43333k3_a_let.csv"
   );
   var templateFile = File(
-    "/Users/jordanhaldane/code/idMerge/src/template/0004_GC_NRP_lett.indt"
+    "//cmpsevr1/prod/new_sys/live/nrpdocs/0786/0786_NRP/0786_EXB_NRP/0786_EXB_NRP_lett/0786_EXB_NRP_lett.indt"
   );
   var exportUri =
     Folder("/Users/jordanhaldane/code/idMerge/export/hold").fsName + "/";
@@ -38,96 +38,55 @@ function openDialog() {
   group1.alignChildren = ["left", "top"];
   group1.spacing = 10;
   group1.margins = 0;
+  group1.alignment = ["left", "top"];
 
-  // GROUP2
+  // PANEL1
   // ======
-  var group2 = group1.add("group", undefined, { name: "group2" });
-  group2.orientation = "row";
-  group2.alignChildren = ["left", "top"];
-  group2.spacing = 10;
-  group2.margins = 0;
-  group2.alignment = ["left", "top"];
-
-  // Merge Process
-  // ======
-  var panel1 = group2.add("panel", undefined, undefined, { name: "panel1" });
-  panel1.text = "Merge Process";
+  var panel1 = group1.add("panel", undefined, undefined, { name: "panel1" });
+  panel1.text = "Batch Size";
   panel1.orientation = "column";
   panel1.alignChildren = ["left", "top"];
   panel1.spacing = 10;
   panel1.margins = 10;
 
-  var statictext1 = panel1.add("statictext", undefined, undefined, {
-    name: "statictext1"
-  });
-  statictext1.text = "(STILL WIP DOES NOT WORK) Choose Merge Process";
-  var genericMergeRadio = panel1.add("radiobutton", undefined, undefined, {
-    name: "genericMergeRadio"
-  });
-  genericMergeRadio.text = "Generic Merge";
-  // Sets default merge process
-  genericMergeRadio.value = true;
-  var inDataMergeRadio = panel1.add("radiobutton", undefined, undefined, {
-    name: "inDataMergeRadio"
-  });
-  inDataMergeRadio.text = "InData Merge";
-
-  // GROUP3
-  // ======
-  var group3 = group2.add("group", undefined, { name: "group3" });
-  group3.orientation = "row";
-  group3.alignChildren = ["left", "top"];
-  group3.spacing = 10;
-  group3.margins = 0;
-  group3.alignment = ["left", "top"];
-
-  // PANEL2
-  // ======
-  var panel2 = group3.add("panel", undefined, undefined, { name: "panel2" });
-  panel2.text = "Batch Size";
-  panel2.orientation = "column";
-  panel2.alignChildren = ["left", "top"];
-  panel2.spacing = 10;
-  panel2.margins = 10;
-
-  var batchSizeInput = panel2.add(
+  var batchSizeInput = panel1.add(
     'edittext {justify: "center", properties: {name: "batchSizeInput"}}'
   );
   batchSizeInput.text = "50";
   batchSizeInput.characters = 2;
   batchSizeInput.alignment = ["fill", "top"];
 
-  // GROUP4
+  // GROUP2
   // ======
-  var group4 = dialog.add("group", undefined, { name: "group4" });
-  group4.orientation = "column";
-  group4.alignChildren = ["left", "top"];
-  group4.spacing = 10;
-  group4.margins = 0;
+  var group2 = dialog.add("group", undefined, { name: "group2" });
+  group2.orientation = "column";
+  group2.alignChildren = ["left", "top"];
+  group2.spacing = 10;
+  group2.margins = 0;
 
-  // PANEL3
+  // PANEL2
   // Template selection
   // ======
-  var panel3 = group4.add("panel", undefined, undefined, { name: "panel3" });
-  panel3.text = "Template Selection";
-  panel3.orientation = "row";
-  panel3.alignChildren = ["left", "top"];
-  panel3.spacing = 10;
-  panel3.margins = 10;
+  var panel2 = group2.add("panel", undefined, undefined, { name: "panel2" });
+  panel2.text = "Template Selection";
+  panel2.orientation = "row";
+  panel2.alignChildren = ["left", "top"];
+  panel2.spacing = 10;
+  panel2.margins = 10;
 
-  var statictext2 = panel3.add("statictext", undefined, undefined, {
+  var statictext2 = panel2.add("statictext", undefined, undefined, {
     name: "statictext2"
   });
   statictext2.text = "Choose Template File:";
 
-  var templateUriInput = panel3.add(
+  var templateUriInput = panel2.add(
     'edittext {properties: {name: "templateUriInput"}}'
   );
   var templateDefault = new File("//cmpsevr1/prod/new_sys/live/nrpdocs/");
   templateUriInput.text = templateDefault.fsName;
   templateUriInput.preferredSize.width = 360;
 
-  var templateBtn = panel3.add("button", undefined, undefined, {
+  var templateBtn = panel2.add("button", undefined, undefined, {
     name: "templateBtn"
   });
   templateBtn.text = "Browse";
@@ -144,36 +103,36 @@ function openDialog() {
   }
   templateBtn.onClick = setTemplateFile;
 
-  // GROUP5
+  // GROUP3
   // ======
-  var group5 = dialog.add("group", undefined, { name: "group5" });
-  group5.orientation = "row";
-  group5.alignChildren = ["left", "fill"];
-  group5.spacing = 10;
-  group5.margins = 0;
+  var group3 = dialog.add("group", undefined, { name: "group3" });
+  group3.orientation = "row";
+  group3.alignChildren = ["left", "fill"];
+  group3.spacing = 10;
+  group3.margins = 0;
 
-  // PANEL4
+  // PANEL3
   // ======
-  var panel4 = group5.add("panel", undefined, undefined, { name: "panel4" });
-  panel4.text = "Data Selection";
-  panel4.orientation = "row";
-  panel4.alignChildren = ["center", "top"];
-  panel4.spacing = 10;
-  panel4.margins = 10;
+  var panel3 = group3.add("panel", undefined, undefined, { name: "panel3" });
+  panel3.text = "Data Selection";
+  panel3.orientation = "row";
+  panel3.alignChildren = ["center", "top"];
+  panel3.spacing = 10;
+  panel3.margins = 10;
 
-  var statictext3 = panel4.add("statictext", undefined, undefined, {
+  var statictext3 = panel3.add("statictext", undefined, undefined, {
     name: "statictext3"
   });
   statictext3.text = "Choose Data File:";
 
-  var dataUriInput = panel4.add(
+  var dataUriInput = panel3.add(
     'edittext {properties: {name: "dataUriInput"}}'
   );
   var dataDefault = new File("//cmpkc_sales/SALES/AAAClientData/");
   dataUriInput.text = dataDefault.fsName;
   dataUriInput.preferredSize.width = 393;
 
-  var dataBtn = panel4.add("button", undefined, undefined, { name: "dataBtn" });
+  var dataBtn = panel3.add("button", undefined, undefined, { name: "dataBtn" });
   dataBtn.text = "Browse";
   function getDataFile() {
     return dataDefault.openDlg("Select data file", "CSV:*.csv, false");
@@ -187,36 +146,36 @@ function openDialog() {
   }
   dataBtn.onClick = setDataFile;
 
-  // GROUP6
+  // GROUP4
   // ======
-  var group6 = dialog.add("group", undefined, { name: "group6" });
-  group6.orientation = "row";
-  group6.alignChildren = ["left", "fill"];
-  group6.spacing = 10;
-  group6.margins = 0;
+  var group4 = dialog.add("group", undefined, { name: "group4" });
+  group4.orientation = "row";
+  group4.alignChildren = ["left", "fill"];
+  group4.spacing = 10;
+  group4.margins = 0;
 
-  // PANEL5
+  // PANEL4
   // ======
-  var panel5 = group6.add("panel", undefined, undefined, { name: "panel5" });
-  panel5.text = "Export Location";
-  panel5.orientation = "row";
-  panel5.alignChildren = ["center", "top"];
-  panel5.spacing = 10;
-  panel5.margins = 10;
+  var panel4 = group4.add("panel", undefined, undefined, { name: "panel4" });
+  panel4.text = "Export Location";
+  panel4.orientation = "row";
+  panel4.alignChildren = ["center", "top"];
+  panel4.spacing = 10;
+  panel4.margins = 10;
 
-  var statictext4 = panel5.add("statictext", undefined, undefined, {
+  var statictext4 = panel4.add("statictext", undefined, undefined, {
     name: "statictext4"
   });
   statictext4.text = "Choose Export Folder:";
 
-  var exportFolderInput = panel5.add(
+  var exportFolderInput = panel4.add(
     'edittext {properties: {name: "exportFolderInput", readonly: true}}'
   );
   exportFolderInput.preferredSize.width = 360;
   exportFolderInput.text = "//cmpsevr1/prod/new_sys/live/nrpdocs/Export/Hold";
   exportUri = exportFolderInput.text + "/";
 
-  var exportBtn = panel5.add("button", undefined, undefined, {
+  var exportBtn = panel4.add("button", undefined, undefined, {
     name: "exportBtn"
   });
   exportBtn.text = "Browse";
@@ -229,33 +188,25 @@ function openDialog() {
     exportFolderInput.text = exportUriOutput;
   }
   exportBtn.onClick = setExportFolder;
-  // GROUP7 OK/Cancel
+  // GROUP5 OK/Cancel
   // ======
-  var group7 = dialog.add("group", undefined, { name: "group7" });
-  group7.orientation = "row";
-  group7.alignChildren = ["left", "center"];
-  group7.spacing = 10;
-  group7.margins = 0;
+  var group5 = dialog.add("group", undefined, { name: "group5" });
+  group5.orientation = "row";
+  group5.alignChildren = ["left", "center"];
+  group5.spacing = 10;
+  group5.margins = 0;
 
-  var button4 = group7.add("button", undefined, "OK", { name: "ok" });
+  var button4 = group5.add("button", undefined, "OK", { name: "ok" });
   button4.alignment = ["left", "top"];
 
-  var button5 = group7.add("button", undefined, "Cancel", { name: "cancel" });
+  var button5 = group5.add("button", undefined, "Cancel", { name: "cancel" });
 
   //validation
   if (dialog.show() == 1) {
     //
-    // Merge Process Validation:
-    //
-    if (genericMergeRadio.value == true) {
-      var mergeProcess = 1;
-    } else {
-      var mergeProcess = 2;
-    }
-    //
     // Batch Size Validation
     //
-    parsedBatchSizeInput = parseInt(batchSizeInput.text);
+    var parsedBatchSizeInput = parseInt(batchSizeInput.text);
     if (parsedBatchSizeInput === parseInt(batchSizeInput.text)) {
       batchSize = parsedBatchSizeInput;
     } else {
@@ -295,23 +246,6 @@ function openDialog() {
     alert("Stopping Script");
     exit(); // TODO: FIX so dialog doesn't die.
   }
-}
-function splitString(stringToSplit, separator) {
-  var arrayOfStrings = stringToSplit.split(separator);
-  if (debugMode == 2) {
-    $.writeln('The original string is: "' + stringToSplit + '"');
-    $.writeln('The separator is: "' + separator + '"');
-    $.writeln(
-      arrayOfStrings.length + " elements: " + arrayOfStrings.join(" _ ")
-    );
-  }
-  return arrayOfStrings;
-}
-
-//parse file object name func
-function parseFile(fileToParse, separator) {
-  var fnString = String(fileToParse.name);
-  return splitString(fnString, separator);
 }
 const underscore = "_";
 var dataSpecs = parseFile(dataFile, underscore);
@@ -388,6 +322,7 @@ function vanillaMerge() {
   openDialog();
 }
 function inDataMerge() {
+  app.linkingPreferences.checkLinksAtOpen = true; // sets modified link dialog to false.
   var firstRec = 1;
   var recsImp = batchSize;
   var pad = "00";
@@ -464,7 +399,7 @@ function inDataMerge() {
         pdfPreset
       );
       // added delay for pdf exporting
-      $.sleep(2000);
+      $.sleep(4000);
       openTemplate.close(SaveOptions.no);
       if (debugMode == 1) {
         $.writeln(
@@ -497,4 +432,57 @@ switch (mergeType) {
   default:
     inDataMerge();
     break;
+}
+
+function splitString(stringToSplit, separator) {
+  var arrayOfStrings = stringToSplit.split(separator);
+  if (debugMode == 2) {
+    $.writeln('The original string is: "' + stringToSplit + '"');
+    $.writeln('The separator is: "' + separator + '"');
+    $.writeln(
+      arrayOfStrings.length + " elements: " + arrayOfStrings.join(" _ ")
+    );
+  }
+  return arrayOfStrings;
+}
+
+//parse file object name func
+function parseFile(fileToParse, separator) {
+  var fnString = String(fileToParse.name);
+  return splitString(fnString, separator);
+}
+
+function defExportFileName(mergeProcess) {
+  if (mergeProcess === 0) {
+    // vanilla ID merge 0004_GC_nrp_ml_10022019_12345T1.csv
+    return (
+      dataSpecs[0] +
+      "_" +
+      dataSpecs[1] + //marketCode
+      "_" +
+      dataSpecs[2] + //procCode
+      "_" +
+      templateSpecs[3].split(".indt")[0] + // mailType; need to make less specific...
+      "_" +
+      dataSpecs[4] + //mailDate
+      "_" +
+      dataSpecs[5].split(".csv")[0] // jobNum
+    );
+  } else {
+    // indData merge ACME_0004_GC_nrp_10022019_12345T1_data.csv
+    return (
+      dataSpecs[1] + //clientNum
+      "_" +
+      dataSpecs[2] + //marketCode
+      "_" +
+      dataSpecs[3] + //procCode
+      "_" +
+      templateSpecs[3].split(".indt")[0] + // mailType; need to make less specific...
+      "_" +
+      dataSpecs[4] + //mailDate
+      "_" +
+      dataSpecs[5] + // jobNum
+      "_"
+    );
+  }
 }
