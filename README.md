@@ -1,8 +1,11 @@
 # idMerge
 
+[![Coding time tracker](https://wakatime.com/badge/github/hergan/idMerge.svg)](https://wakatime.com/badge/github/hergan/idMerge)
+
 idMerge is a jsx EntendScript script for InDesign for a mail merge process.
 
 ## Development Time
+
 [Project Development Time](https://wakatime.com/@d380d089-8950-400a-be29-bb18c6506764/projects/eivelirrky?start=2019-09-17&end=2019-09-23)
 
 _Time logged to this project via [WakaTime](https://wakatime.com)_
