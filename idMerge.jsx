@@ -289,10 +289,7 @@ function vanillaMerge() {
 	if (dataFile == null) return;
 	openTemplate.dataMergeProperties.selectDataSource(File(dataFile));
 
-	openTemplate.dataMergeProperties.exportFile(
-		saveName,
-		"[High Quality Print]"
-	);
+	openTemplate.dataMergeProperties.exportFile(saveName, "[High Quality Print]");
 	$.sleep(2000); //for exporting wait time.
 	//test w/ big file
 	openTemplate.close(SaveOptions.no);
@@ -333,11 +330,7 @@ function inDataMerge() {
 				var oldPdfName = exportFileName + (pad + i).slice(-3) + ".pdf";
 				var newPdfName = oldPdfName.replace(
 					oldPdfName,
-					exportFileName +
-						(pad + i).slice(-3) +
-						"-" +
-						batchTotal +
-						".pdf"
+					exportFileName + (pad + i).slice(-3) + "-" + batchTotal + ".pdf"
 				);
 				var oldPdf = File(exportUri + oldPdfName);
 				oldPdfFilePath = oldPdf.fullName;
@@ -372,11 +365,8 @@ function inDataMerge() {
 			// import succeeded; reset lastRec just
 			// in case to reflect actual number of imported recs
 			lastRec = firstRec + recsImp - 1;
-			var inDataSaveName =
-				exportUri + exportFileName + batchIndex + ".pdf";
-			var pdfPreset = app.pdfExportPresets.itemByName(
-				"[High Quality Print]"
-			);
+			var inDataSaveName = exportUri + exportFileName + batchIndex + ".pdf";
+			var pdfPreset = app.pdfExportPresets.itemByName("[High Quality Print]");
 			openTemplate.exportFile(
 				ExportFormat.PDF_TYPE,
 				File(inDataSaveName),
@@ -463,7 +453,9 @@ function defExportFileName(mergeProcess) {
 	}
 }
 
-//Determines mergeType based off of a "ml" flag in the data file name.
+// Determines mergeType based off of a "ml" flag in the data file name.
+// The "ml" flag is only used w/ weekly vanilla data files (AMCE). Will need a different identifier
+// for vanilla monthly merges
 function defMergeType(dataFileName) {
 	if (dataFileName[3] === "ml") {
 		// Vanilla merge
